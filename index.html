@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HealthOS — Practical, Decomposed PRD (SaaS for Clinics & Allied Health)</title>
   <meta name="description" content="A complete, implementation-ready PRD for HealthOS — a multi-tenant SaaS for clinics and allied health: appointments, eRx, ABDM/FHIR, automations, CMS, marketing, analytics, compliance and more." />
+
   <!-- Inline, Apple-inspired + Material-ish CSS -->
   <style>
     :root{
@@ -42,6 +43,7 @@
       --glass: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,.85));
       --glass-2: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.9));
     }
+
     html,body{
       margin:0;
       padding:0;
@@ -53,6 +55,7 @@
       -moz-osx-font-smoothing: grayscale;
       scroll-behavior:smooth;
     }
+
     /* Top progress bar */
     .progress{
       position: fixed; top:0; left:0; height:4px; width:0%;
@@ -61,26 +64,31 @@
       z-index:9999;
       transition: width .1s linear;
     }
+
     header{
       position: sticky; top:0; z-index: 999;
       backdrop-filter: saturate(180%) blur(14px);
       background: var(--glass);
       border-bottom: 1px solid var(--border);
     }
+
     .wrap{
       margin: 0 auto;
       max-width: var(--grid);
       padding: 14px 20px;
       display:flex; align-items:center; gap:18px; justify-content:space-between;
     }
+
     .brand{
       display:flex; align-items:center; gap:12px; text-decoration:none; color: var(--text);
     }
     .brand svg{ width:28px; height:28px; }
     .brand .title{ font-weight:700; letter-spacing:.2px; }
+
     .actions{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     }
+
     .btn{
       position:relative;
       border:1px solid var(--border);
@@ -101,6 +109,7 @@
     .btn.primary{ background: linear-gradient(180deg, var(--primary), #3b82f6); border-color: transparent; color: white; }
     .btn.ghost{ background: transparent; }
     .btn.small{ padding:8px 10px; font-size:13px; }
+
     .search{
       position:relative;
       display:flex; align-items:center; gap:10px;
@@ -116,12 +125,18 @@
       border:0; outline:none; background:transparent; color:var(--text); width:100%;
       font-size:14px;
     }
+
     main{
       max-width: var(--grid);
       margin: 28px auto;
       padding: 0 20px 100px;
       display:grid; grid-template-columns: 260px 1fr; gap: 22px;
     }
+    @media (max-width: 1080px){
+      main{ grid-template-columns: 1fr; }
+      .toc{ position: static; top:auto; }
+    }
+
     .hero{
       margin: 26px auto 8px;
       max-width: var(--grid);
@@ -153,6 +168,7 @@
       color: var(--muted);
     }
     .chip .dot{ width:8px; height:8px; border-radius:999px; background: var(--primary); box-shadow: 0 0 0 3px rgba(14,165,233,.15); }
+
     .toc{
       position: sticky; top: 74px;
       align-self:flex-start;
@@ -171,9 +187,11 @@
       transition: background .15s ease, color .15s ease;
     }
     .toc a:hover{ background: rgba(14,165,233,.1); color: var(--primary); }
+
     .section{
       display:grid; gap: 14px;
     }
+
     .card{
       border:1px solid var(--border);
       background: var(--card);
@@ -181,12 +199,14 @@
       box-shadow: var(--shadow-1);
       padding: 18px 18px;
     }
+
     .section h2{
       margin: 8px 0 6px;
       font-size: clamp(20px, 2.2vw, 26px);
     }
     .section p{ margin: 10px 0; color: var(--text); }
     .muted{ color: var(--muted); }
+
     /* Details/Accordion */
     details.prd{
       border:1px solid var(--border);
@@ -216,6 +236,7 @@
       width:18px; height:18px; transition: transform .2s ease; opacity:.9;
     }
     details[open] .summary .chev{ transform: rotate(180deg); }
+
     .content{
       padding: 2px 18px 18px;
       display:grid; gap: 14px;
@@ -228,6 +249,10 @@
       display:grid; gap:12px;
       grid-template-columns: repeat(3, minmax(0,1fr));
     }
+    @media (max-width: 900px){
+      .grid-2, .grid-3{ grid-template-columns: 1fr; }
+    }
+
     /* Tables */
     .table{
       width:100%; border-collapse: collapse; overflow:auto;
@@ -246,6 +271,7 @@
       font-size: 12px; background: #0b1220; color: #eaf2ff; padding: 4px 6px; border-radius: 6px;
       border:1px solid #1f2a44;
     }
+
     /* Code blocks */
     pre{
       background: #0b1220;
@@ -261,6 +287,7 @@
       border:1px solid #1f2a44; background: #0e1628; color:#eaf2ff;
       border-radius:8px; font-size:12px; padding:6px 8px; cursor:pointer;
     }
+
     /* FAB + Back-to-top */
     .fab{
       position: fixed; right: 22px; bottom: 22px; z-index: 888;
@@ -270,6 +297,7 @@
       cursor:pointer; display:flex; align-items:center; justify-content:center;
     }
     .fab:active{ transform: translateY(1px); }
+
     /* Status chips */
     .status{ display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid var(--border); }
     .status .dot{ width:8px; height:8px; border-radius:999px; }
@@ -279,219 +307,6 @@
     .warn .dot{ background: var(--warn); }
     .danger{ background: rgba(239,68,68,.12); }
     .danger .dot{ background: var(--danger); }
-    /* Highlight for search */
-    mark{ background: #fde68a; color: black; padding: 0 3px; border-radius: 4px; }
-
-    /* Responsive improvements */
-    @media (max-width: 1200px) {
-      .wrap {
-        padding: 12px 16px;
-      }
-      .hero-card {
-        padding: 20px;
-      }
-      .search {
-        max-width: 280px;
-      }
-    }
-
-    @media (max-width: 1080px){
-      main{ grid-template-columns: 1fr; }
-      .toc{
-        position: static;
-        top:auto;
-        max-height: none;
-        margin-bottom: 20px;
-      }
-    }
-
-    @media (max-width: 900px){
-      .grid-2, .grid-3{ grid-template-columns: 1fr; }
-      .hero-card {
-        padding: 16px;
-      }
-      .brand .title {
-        font-size: 18px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .wrap {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-      }
-
-      .actions {
-        width: 100%;
-        justify-content: space-between;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 5px;
-      }
-
-      .search {
-        max-width: none;
-        order: 3;
-        width: 100%;
-      }
-
-      .hero {
-        padding: 0 16px;
-      }
-
-      main {
-        padding: 0 16px 80px;
-        margin: 20px auto;
-      }
-
-      .fab {
-        width: 48px;
-        height: 48px;
-        right: 16px;
-        bottom: 16px;
-      }
-
-      .summary {
-        padding: 14px 16px;
-      }
-
-      .summary h3 {
-        font-size: 16px;
-      }
-
-      .content {
-        padding: 2px 16px 16px;
-      }
-
-      .card {
-        padding: 16px;
-      }
-
-      .table th, .table td {
-        padding: 8px 10px;
-        font-size: 13px;
-      }
-    }
-
-    @media (max-width: 576px) {
-      .brand svg {
-        width: 24px;
-        height: 24px;
-      }
-
-      .brand .title {
-        font-size: 16px;
-      }
-
-      .btn {
-        padding: 8px 12px;
-        font-size: 13px;
-      }
-
-      .btn.small {
-        padding: 6px 8px;
-        font-size: 12px;
-      }
-
-      .hero-card {
-        padding: 14px;
-      }
-
-      .hero h1 {
-        font-size: 24px;
-      }
-
-      .chip {
-        font-size: 11px;
-        padding: 5px 8px;
-      }
-
-      .toc {
-        padding: 12px;
-      }
-
-      .toc h3 {
-        font-size: 13px;
-        margin: 5px 8px 10px;
-      }
-
-      .toc a {
-        padding: 6px 8px;
-        font-size: 13px;
-      }
-
-      .section h2 {
-        font-size: 20px;
-      }
-
-      .card {
-        padding: 14px;
-      }
-
-      .summary {
-        padding: 12px 14px;
-      }
-
-      .summary h3 {
-        font-size: 15px;
-      }
-
-      .summary .tag {
-        font-size: 11px;
-        padding: 4px 8px;
-      }
-
-      .content {
-        padding: 2px 14px 14px;
-      }
-
-      .table th, .table td {
-        padding: 6px 8px;
-        font-size: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .actions {
-        flex-direction: column;
-        width: 100%;
-        gap: 8px;
-        align-items: stretch;
-      }
-
-      .search {
-        order: 1;
-      }
-
-      .btn-group {
-        display: flex;
-        gap: 8px;
-        justify-content: space-between;
-        order: 2;
-      }
-
-      .btn {
-        flex: 1;
-        justify-content: center;
-      }
-
-      .fab {
-        width: 44px;
-        height: 44px;
-      }
-
-      .summary {
-        flex-wrap: wrap;
-      }
-
-      .summary .tag {
-        margin-left: 0;
-        margin-top: 8px;
-        width: 100%;
-        text-align: center;
-      }
-    }
 
     /* Print (clean) */
     @media print{
@@ -501,10 +316,15 @@
       a{ color: #000; text-decoration: none; }
       body{ background: white; color: black; }
     }
+
+    /* Highlight for search */
+    mark{ background: #fde68a; color: black; padding: 0 3px; border-radius: 4px; }
+
   </style>
 </head>
 <body>
   <div class="progress" id="progress"></div>
+
   <header>
     <div class="wrap">
       <a class="brand" href="#top" aria-label="Go to top">
@@ -521,20 +341,20 @@
         </svg>
         <span class="title">HealthOS — PRD</span>
       </a>
+
       <div class="actions">
         <div class="search" role="search">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3m2.3-5.2A7 7 0 1 1 5 5a7 7 0 0 1 14 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           <input id="search" type="search" placeholder="Search in PRD (⌘/Ctrl + K)" aria-label="Search PRD"/>
         </div>
-        <div class="btn-group">
-          <button class="btn ghost" id="toggleTheme" aria-pressed="false" title="Toggle theme" type="button">🌗 Theme</button>
-          <button class="btn ghost" id="expandAll" title="Expand all modules" type="button">➕ Expand</button>
-          <button class="btn ghost" id="collapseAll" title="Collapse all modules" type="button">➖ Collapse</button>
-          <button class="btn primary" id="printDoc" title="Print / Save as PDF" type="button">⎙ Print</button>
-        </div>
+        <button class="btn ghost" id="toggleTheme" aria-pressed="false" title="Toggle theme" type="button">🌗 Theme</button>
+        <button class="btn ghost" id="expandAll" title="Expand all modules" type="button">➕ Expand</button>
+        <button class="btn ghost" id="collapseAll" title="Collapse all modules" type="button">➖ Collapse</button>
+        <button class="btn primary" id="printDoc" title="Print / Save as PDF" type="button">⎙ Print</button>
       </div>
     </div>
   </header>
+
   <section class="hero" id="top">
     <div class="hero-card">
       <div class="badges">
@@ -548,7 +368,7 @@
       <div class="grid-3">
         <div class="card">
           <strong>Vision</strong>
-          <p>One stack to acquire, schedule, treat, record and retain patients—privacy-first, India-ready (ABDM/ABHA, DPDP, DLT, CERT-In) and global-capable (HIPAA mode).</p>
+          <p>One stack to acquire, schedule, treat, record and retain patients—privacy-first, India-ready (ABDM/ABHA, DPDP, DLT, CERT-In) and global-capable (HIPAA/GDPR modes).</p>
         </div>
         <div class="card">
           <strong>Primary Outcomes</strong>
@@ -566,6 +386,7 @@
       </div>
     </div>
   </section>
+
   <main>
     <!-- TOC -->
     <nav class="toc" aria-label="Table of contents">
@@ -586,12 +407,14 @@
       <a href="#open">13) Open Questions</a>
       <a href="#appendix">14) Appendices</a>
     </nav>
+
     <!-- BODY -->
     <section class="section">
       <div id="exec" class="card">
         <h2>0) Executive Summary</h2>
-        <p>HealthOS is a subscription SaaS for clinics and allied health—combining scheduling, automated follow-ups, patient communications, standards-based health records, voice e-prescriptions, lab referrals, marketing automation, CMS, analytics, mobile apps, and a compliance-first backbone (ABDM/ABHA, DPDP, DLT, CERT-In; HIPAA mode for US tenants). Clinical data aligns to HL7 FHIR R4.</p>
+        <p>HealthOS is a subscription SaaS for clinics and allied health—combining scheduling, automated follow-ups, patient communications, standards-based health records, voice e-prescriptions, lab referrals, marketing automation, CMS, analytics, mobile apps, and a compliance-first backbone (ABDM/ABHA, DPDP, DLT, CERT-In; HIPAA/GDPR modes for global tenants). Clinical data aligns to HL7 FHIR R4.</p>
       </div>
+
       <div id="goals" class="card">
         <h2>1) Goals, Non-Goals, KPIs</h2>
         <div class="grid-3">
@@ -602,14 +425,15 @@
               <li>Automations shipped across ≥3 specialties</li>
               <li>Secure, auditable FHIR store; ABDM M1–M3</li>
               <li>DLT-compliant comms (consent & quiet hours)</li>
+              <li>Tele-consults (HD) with eRx + summaries</li>
             </ul>
           </div>
           <div>
             <strong>Non-Goals (MVP)</strong>
             <ul>
               <li>Inpatient/IPD workflows</li>
-              <li>Insurance adjudication</li>
-              <li>Direct e-pharmacy fulfillment</li>
+              <li>Insurance adjudication (lite claims only)</li>
+              <li>Direct e-pharmacy fulfillment (via partners)</li>
             </ul>
           </div>
           <div>
@@ -617,13 +441,14 @@
             <ul>
               <li>No-show %, utilization, wait time</li>
               <li>% online vs. front-desk bookings</li>
-              <li>Portal activation, record shares</li>
-              <li>DLT send success, opt-outs, review velocity</li>
-              <li>ABDM exchange success; FHIR validation rate</li>
+              <li>Portal/PHR activation, record shares</li>
+              <li>DLT success, opt-outs, review velocity</li>
+              <li>Tele consult CSAT, first-time fix rate</li>
             </ul>
           </div>
         </div>
       </div>
+
       <div id="personas" class="card">
         <h2>2) Personas</h2>
         <ul>
@@ -632,9 +457,11 @@
           <li><strong>Front-desk/Coordinator:</strong> calendars, queue, quick comms</li>
           <li><strong>Billing/Ops:</strong> invoices, packages, settlements, GST</li>
           <li><strong>Marketing/CRM:</strong> campaigns, cohorts, listings, reviews</li>
-          <li><strong>Patient/Attendant:</strong> self-book, records, payments, uploads</li>
+          <li><strong>Patient/Attendant:</strong> self-book, PHR, payments, uploads</li>
+          <li><strong>Family Guardian:</strong> multi-profile mgmt, consent-based access</li>
         </ul>
       </div>
+
       <div id="scope" class="card">
         <h2>3) Scope Overview (Modules)</h2>
         <ol>
@@ -652,9 +479,24 @@
           <li>Admin, Roles, SSO</li>
           <li>Security, Privacy & Observability</li>
           <li>Integrations & ABDM Onboarding</li>
+          <!-- New modules -->
+          <li>Personal Health Records (PHR)</li>
+          <li>Online Doctor Consultations</li>
+          <li>Medicine Delivery</li>
+          <li>Health Monitoring (Vitals & Wearables)</li>
+          <li>AI Health Analytics & Insights</li>
+          <li>Family Health Management</li>
+          <li>Lab Test Booking & Reports</li>
+          <li>Vaccination Tracking</li>
+          <li>Insurance Integration (Lite)</li>
+          <li>Emergency Services</li>
+          <li>Health Education Content</li>
+          <li>Health Wallet</li>
+          <li>Multilingual Support</li>
         </ol>
       </div>
-      <!-- DECOMPOSED PRDs -->
+
+      <!-- ===================== EXISTING DECOMPOSED PRDs ===================== -->
       <div id="modules">
         <!-- PRD 1 -->
         <details class="prd" open>
@@ -667,12 +509,13 @@
             <div class="grid-2">
               <div class="card">
                 <strong>Problem & Objectives</strong>
-                <p>Reduce no-shows, simplify multi-provider calendars, support telemedicine and QR-based "Scan & Share" OPD intake.</p>
+                <p>Reduce no-shows, simplify multi-provider calendars, support telemedicine and QR-based “Scan & Share” OPD intake. Add recurring appointments & calendar sync.</p>
                 <strong>User Stories</strong>
                 <ul>
                   <li>Book/reschedule with buffers & room/device resources</li>
-                  <li>Auto-fill waitlist on cancellations (rule-based)</li>
+                  <li>Recurring appointments (e.g., weekly physio x 8)</li>
                   <li>Tele slot with consent + secure link</li>
+                  <li>Real-time Google/Outlook sync (read/write)</li>
                   <li>Scan & Share QR → token at reception</li>
                 </ul>
               </div>
@@ -681,6 +524,7 @@
                 <ol>
                   <li>Create Slot Type → kind, duration, buffers</li>
                   <li>Book Visit → select slot → patient → visit type → confirm</li>
+                  <li>Set Recurrence → rule builder → exceptions → save</li>
                   <li>Waitlist Fill → cancel → rank → send offer → confirm</li>
                   <li>Scan & Share → QR → demographics/ABHA → token</li>
                 </ol>
@@ -690,6 +534,7 @@
               <div class="card"><strong>Edge Cases</strong>
                 <ul>
                   <li>Double-book race → server locks</li>
+                  <li>External calendar conflicts → show diff & resolve</li>
                   <li>Tele link send failure → fallback ladder</li>
                   <li>Late arrival → optional reflow</li>
                   <li>Site w/o Scan & Share → manual fallback</li>
@@ -699,6 +544,7 @@
                 <ul>
                   <li>Drag-drop reschedule; conflict detect</li>
                   <li>Waitlist offer ≤ 60s post-cancel</li>
+                  <li>Two-way calendar sync within 60s</li>
                   <li>Tele slot: consent + secure link + reminder</li>
                   <li>Scan & Share journey &lt; 60s</li>
                 </ul>
@@ -711,11 +557,12 @@
                   <li>Rebooking rate</li>
                   <li>Scan & Share adoption</li>
                 </ul>
-                <p class="muted">Data: Appointment, Schedule, Slot, Patient, Encounter, QueueToken</p>
+                <p class="muted">Data: Appointment, Schedule, Slot, Patient, RecurrenceRule, QueueToken</p>
               </div>
             </div>
           </div>
         </details>
+
         <!-- PRD 2 -->
         <details class="prd">
           <summary class="summary">
@@ -727,12 +574,13 @@
             <div class="grid-2">
               <div class="card">
                 <strong>Problem & Objectives</strong>
-                <p>Centralize reminders, alerts, campaigns with TRAI DLT compliance and consent tracking.</p>
+                <p>Centralize reminders, alerts, campaigns with TRAI DLT compliance and consent tracking. Multi-channel (SMS/Email/Push/WhatsApp).</p>
                 <strong>User Stories</strong>
                 <ul>
                   <li>Configure DLT Principal Entity, headers, templates</li>
                   <li>Send reminders, late-running alerts, review prompts</li>
                   <li>Cohort broadcasts with throttling & quiet hours</li>
+                  <li>Template variables & A/B tests</li>
                 </ul>
               </div>
               <div class="card">
@@ -771,6 +619,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 3 -->
         <details class="prd">
           <summary class="summary">
@@ -826,6 +675,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 4 -->
         <details class="prd">
           <summary class="summary">
@@ -838,7 +688,7 @@
               <div class="card">
                 <strong>User Stories</strong>
                 <ul>
-                  <li>OTP login; device-bound sessions</li>
+                  <li>OTP login; device-bound sessions; biometric unlock</li>
                   <li>Aadhaar Paperless Offline (XML/QR), masked storage</li>
                   <li>Upload PDFs/images; view timeline</li>
                   <li>Rebook/cancel; pay dues</li>
@@ -878,6 +728,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 5 -->
         <details class="prd">
           <summary class="summary">
@@ -892,16 +743,18 @@
                 <ul>
                   <li>Dictate Rx (multi-language medical vocab)</li>
                   <li>Autocomplete drug/generic, strength, frequency, duration</li>
+                  <li>Protocols (e.g., “Hypertension Protocol”)</li>
                   <li>Telemedicine lists O/A/B; Prohibited blocked</li>
                   <li>eSign (DSC/eSign) PDF + FHIR MedicationRequest</li>
+                  <li>QR for pharmacy scan; duplicate Rx detection</li>
                 </ul>
               </div>
               <div class="card">
                 <strong>UI Flows</strong>
                 <ol>
                   <li>Dictate → NER → review → save</li>
-                  <li>Safety Check → warn/block → log</li>
-                  <li>Sign & Share → eSign → PDF + FHIR</li>
+                  <li>Safety Check → interactions/allergies → warn/block → log</li>
+                  <li>Sign & Share → eSign → PDF + FHIR + QR</li>
                 </ol>
               </div>
             </div>
@@ -931,6 +784,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 6 -->
         <details class="prd">
           <summary class="summary">
@@ -943,7 +797,7 @@
               <div class="card">
                 <strong>User Stories</strong>
                 <ul>
-                  <li>Triggers (booking/no-show/lab)</li>
+                  <li>Triggers (booking/no-show/lab/PHR upload)</li>
                   <li>Conditions (age, diagnosis, consent)</li>
                   <li>Actions (message, task, schedule, webhook)</li>
                   <li>Versioning, simulation, logs</li>
@@ -981,6 +835,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 7 -->
         <details class="prd">
           <summary class="summary">
@@ -1030,6 +885,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 8 -->
         <details class="prd">
           <summary class="summary">
@@ -1057,6 +913,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 9 -->
         <details class="prd">
           <summary class="summary">
@@ -1084,6 +941,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 10 -->
         <details class="prd">
           <summary class="summary">
@@ -1112,6 +970,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 11 -->
         <details class="prd">
           <summary class="summary">
@@ -1138,6 +997,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 12 -->
         <details class="prd">
           <summary class="summary">
@@ -1172,6 +1032,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 13 -->
         <details class="prd">
           <summary class="summary">
@@ -1195,6 +1056,7 @@
                 <ul>
                   <li>Retention policies & NTP configs evidenced</li>
                   <li>Pentest + SAST/DAST archived</li>
+                  <li>ISO 27001 controls mapped to systems</li>
                 </ul>
               </div>
               <div class="card">
@@ -1208,6 +1070,7 @@
             </div>
           </div>
         </details>
+
         <!-- PRD 14 -->
         <details class="prd">
           <summary class="summary">
@@ -1242,51 +1105,709 @@
             </div>
           </div>
         </details>
+
+        <!-- ===================== NEW MODULES FROM YOUR LIST ===================== -->
+
+        <!-- PRD 15 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-15: Personal Health Records (PHR)</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>Problem & Objectives</strong>
+                <p>Give patients a centralized, secure vault for all health data with granular sharing and offline access.</p>
+                <strong>User Stories</strong>
+                <ul>
+                  <li>Upload PDF/JPEG/PNG/DICOM; OCR & auto-categorize</li>
+                  <li>Tagging (#Cardiology), folders (“2023 Annual Checkups”), timeline view</li>
+                  <li>End-to-end encryption; biometric login</li>
+                  <li>Share time-bound links; role-based family access</li>
+                  <li>FHIR/HL7 import from hospitals & labs</li>
+                  <li>Cloud sync + offline cached mode</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Upload → OCR → suggest category/tags → confirm</li>
+                  <li>Create Folder/Tag → drag-drop organize → timeline updates</li>
+                  <li>Share → select scope + expiry → generate secure link</li>
+                  <li>Connect Provider → OAuth/HIP link → FHIR bundle import</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Failed OCR → fallback to manual fields</li>
+                  <li>DICOM too large → background upload + progress</li>
+                  <li>Expired share link → prompt reissue</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>OCR accuracy ≥ 90% on printed docs</li>
+                  <li>AES-256 client-side encryption for PHR payloads</li>
+                  <li>Complete audit logs for access/shares</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>PHR MAU, uploads/user</li>
+                  <li>Share link usage</li>
+                  <li>OCR correction rate</li>
+                </ul>
+                <p class="muted">Data: PHRDocument, Tag, ShareLink, KeyEnvelope, AuditEvent</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 16 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-16: Online Doctor Consultations</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Doctor discovery: filters (specialty, language, gender, exp, rating, fees)</li>
+                  <li>AI “symptom→doctor” matching</li>
+                  <li>Video (WebRTC HD), audio-only, async chat w/ attachments</li>
+                  <li>Pre-call checklist & record uploads; consented live transcription</li>
+                  <li>Post-call: auto summary, eRx, follow-up scheduling</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Search → filters → profile → book → pay → join waiting room</li>
+                  <li>Call UI → screen-share → notes → eRx</li>
+                  <li>End session → summary → follow-up slot selection</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Poor bandwidth → auto degrade to audio</li>
+                  <li>No-show doctor → reassign/refund flows</li>
+                  <li>Consent revoked mid-call → stop recording/transcription</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Video uptime ≥ 99.9% monthly SLA</li>
+                  <li>Average setup time ≤ 10s on p50 connections</li>
+                  <li>Consent banners for recording & transcription</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Connection success %</li>
+                  <li>CSAT/NPS</li>
+                  <li>First-time resolution %</li>
+                </ul>
+                <p class="muted">Data: ConsultSession, Transcript, Queue, Rating, Refund</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 17 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-17: Medicine Delivery (Partner Network)</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Upload Rx or pull from PHR; choose generic vs. brand</li>
+                  <li>Price compare; inventory check across partner pharmacies</li>
+                  <li>GPS tracking; cold-chain support for sensitive meds</li>
+                  <li>Auto-refill subscriptions; pause/resume</li>
+                  <li>Insurance co-pay validation; EMI for high-cost meds</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Create Order → attach Rx → select pharmacy → pay → track</li>
+                  <li>Subscription → cadence → reminders → skip/hold</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Out of stock → alternate suggestion + split order</li>
+                  <li>Cold-chain breach → auto-cancel & refund</li>
+                  <li>Invalid Rx → pharmacist rejection → re-upload</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Partner SLAs surfaced; tracking webhooks recorded</li>
+                  <li>Rx verification required before dispatch</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Fulfillment success %</li>
+                  <li>Avg delivery time</li>
+                  <li>Subscription retention</li>
+                </ul>
+                <p class="muted">Data: PharmacyOrder, InventoryQuote, DeliveryTracking, Subscription</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 18 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-18: Health Monitoring (Vitals & Wearables)</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Manual entry with unit validation; Bluetooth device sync</li>
+                  <li>OAuth links to Apple Health, Google Fit, Fitbit</li>
+                  <li>Interactive graphs; anomaly detection & alerts</li>
+                  <li>User-defined thresholds; parameter correlations</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Connect Device/App → permissions → initial sync</li>
+                  <li>Enter Reading → validate units → chart update</li>
+                  <li>Set Alert → threshold → channel → quiet hours</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Duplicate readings → dedupe by timestamp/device</li>
+                  <li>Unit mismatch → auto-conversion with warning</li>
+                  <li>Device disconnect → retry & notify</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Sync latency p95 ≤ 2 min</li>
+                  <li>Alert delivery p95 ≤ 60s with audit</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Connected devices/user</li>
+                  <li>Alert accuracy (true positive %)</li>
+                  <li>Daily active trackers</li>
+                </ul>
+                <p class="muted">Data: DeviceLink, VitalMeasurement, ThresholdRule, AlertEvent</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 19 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-19: AI Health Analytics & Insights</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Predictive risk scores (e.g., 10-yr diabetes risk)</li>
+                  <li>NLP over notes to extract problems/meds</li>
+                  <li>Personalized reports (“heart age”) & recommendations</li>
+                  <li>On-device processing where feasible; opt-in research use</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Consent → data sources selection → compute → report</li>
+                  <li>Explainability view → contributing factors → actions</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Insufficient data → defer with guidance</li>
+                  <li>Model drift → auto-retrain gatekeeping</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Documented model cards (data, metrics, limits)</li>
+                  <li>Privacy modes: on-device / regional processing</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Report engagement</li>
+                  <li>Recommendation adherence</li>
+                  <li>Model accuracy/AUC per cohort</li>
+                </ul>
+                <p class="muted">Data: RiskScore, Insight, Consent, FeatureVector</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 20 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-20: Family Health Management</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Multiple profiles (adult/child/elder) with growth charts</li>
+                  <li>Guardian roles; consented access & switching</li>
+                  <li>Family calendar; shared PHR folders</li>
+                  <li>ICE contacts; member medical IDs</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Add Member → relationship → permissions</li>
+                  <li>Switch Profile → scoped data & actions</li>
+                  <li>Share Folder → select members → set role</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Guardian dispute → freeze & require both approvals</li>
+                  <li>Child turns 18 → auto-ownership transfer</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Per-member consent ledger</li>
+                  <li>Profile switch in &lt; 2 taps</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Avg members per household</li>
+                  <li>Shared resource usage</li>
+                </ul>
+                <p class="muted">Data: FamilyProfile, GuardianLink, EmergencyContact, MedicalID</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 21 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-21: Lab Test Booking & Reports (Consumer)</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Discover packages; price compare across labs</li>
+                  <li>Home collection scheduling; phlebotomist tracking</li>
+                  <li>Pre-test instructions; reminders</li>
+                  <li>Interactive reports with highlights; doctor annotations</li>
+                  <li>Auto-store results in PHR</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Search Test/Package → compare → book → pay</li>
+                  <li>Collection → live tracker → completion</li>
+                  <li>Report → highlights → share with doctor</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Sample recollection needed → priority reschedule</li>
+                  <li>Abnormal critical values → alert patient + doctor</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>LIS API integration; turnaround SLA surfaced</li>
+                  <li>Critical value alert within 5 min of ingestion</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Bookings/day</li>
+                  <li>On-time report %</li>
+                  <li>PHR auto-save rate</li>
+                </ul>
+                <p class="muted">Data: TestCatalog, LabBooking, CollectionRoute, DiagnosticReportUI</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 22 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-22: Vaccination Tracking</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>WHO/CDC schedules; catch-up planner</li>
+                  <li>Digital certificates; batch/lot tracking</li>
+                  <li>Reminders incl. location-based availability</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Add Vaccine → age group → schedule auto-fill</li>
+                  <li>Record Dose → lot/batch → certificate</li>
+                  <li>Reminder → choose channel → send</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Recall batch → notify impacted users</li>
+                  <li>Schedule conflicts → smart reschedule</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Immunization (FHIR) resource coverage</li>
+                  <li>Certificate QR verifiable</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Dose completion rate</li>
+                  <li>On-time adherence</li>
+                </ul>
+                <p class="muted">Data: Immunization, VaccineLot, Certificate, Reminder</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 23 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-23: Insurance Integration (Lite)</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Policy upload with OCR; coverage highlights</li>
+                  <li>Pre-authorization request templates</li>
+                  <li>Reimbursement tracker with statuses</li>
+                  <li>Cashless network finder & co-pay calculator</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Upload Policy → OCR → coverage summary</li>
+                  <li>Start Claim → pre-auth form → submit → track</li>
+                  <li>Find Network → map → book appointment</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>OCR low confidence → highlight fields for edit</li>
+                  <li>Insurer API downtime → queue & notify</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Policy OCR accuracy ≥ 85% on key fields</li>
+                  <li>Claim timeline audit & export</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Claim cycle time</li>
+                  <li>OCR correction rate</li>
+                </ul>
+                <p class="muted">Data: InsurancePolicy, Claim, PreAuth, NetworkProvider</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 24 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-24: Emergency Services (SOS)</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>SOS via shake or in-app; auto-dial ambulance + contacts</li>
+                  <li>GPS share; nearest ER routing</li>
+                  <li>Lockscreen medical ID (allergies, meds)</li>
+                  <li>Partner ambulance aggregators integration</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>SOS Trigger → confirm slide → call + share location</li>
+                  <li>Responder View → live location → ETA → cancel</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>False trigger → quick cancel within 5s</li>
+                  <li>No GPS → last known + cell triangulation</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Alert dispatch &lt; 10s from trigger p95</li>
+                  <li>Medical ID accessible from lockscreen</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>SOS success rate</li>
+                  <li>Average response time</li>
+                </ul>
+                <p class="muted">Data: SOSIncident, Responder, GeoTrail, MedicalID</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 25 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-25: Health Education Content</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>Curated articles/videos; condition hubs</li>
+                  <li>Multilingual (15+), personalized feeds</li>
+                  <li>Quizzes, calculators, moderated forums</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Browse Hub → filter → read/watch → save</li>
+                  <li>Quiz → score → suggest next steps</li>
+                  <li>Forum → post → moderation queue</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Misinformation risk → medical review workflow</li>
+                  <li>Unsafe community posts → auto-moderation & bans</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>Medical review SLA for new content</li>
+                  <li>Forum moderation latency &lt; 2 min for flags</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Content CTR & dwell time</li>
+                  <li>Forum health (reports/1k posts)</li>
+                </ul>
+                <p class="muted">Data: ContentItem, Topic, Quiz, ForumPost, ModerationEvent</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 26 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-26: Health Wallet</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>UPI/cards/netbanking; insurance payments</li>
+                  <li>Expense categorization; 80D tax reports</li>
+                  <li>Two-factor auth; txn limits; EMI</li>
+                  <li>Unified checkout across all modules</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Add Funds/Pay → method → confirm</li>
+                  <li>Export Statements → filter → PDF/CSV</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Payment failure → retry & reconciliation</li>
+                  <li>Chargeback → dispute workflow</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>PCI-DSS scope minimized via tokenization</li>
+                  <li>Ledger double-entry integrity</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Txn success %</li>
+                  <li>Refund SLA</li>
+                </ul>
+                <p class="muted">Data: Wallet, Transaction, Payout, TaxReport</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- PRD 27 -->
+        <details class="prd">
+          <summary class="summary">
+            <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <h3>PRD-27: Multilingual Support</h3>
+            <span class="tag">NEW</span>
+          </summary>
+          <div class="content">
+            <div class="grid-2">
+              <div class="card"><strong>User Stories</strong>
+                <ul>
+                  <li>UI in Hindi, Tamil, Bengali, etc.; regional dialects (Hinglish)</li>
+                  <li>Multilingual chatbots & support</li>
+                  <li>Voice commands in local languages</li>
+                  <li>Culturally adapted content (e.g., Ayurveda tips)</li>
+                </ul>
+              </div>
+              <div class="card"><strong>UI Flows</strong>
+                <ol>
+                  <li>Language Picker → persist per user/device</li>
+                  <li>Voice Input → speech-to-text → action</li>
+                </ol>
+              </div>
+            </div>
+            <div class="grid-3">
+              <div class="card"><strong>Edge Cases</strong>
+                <ul>
+                  <li>Mixed-language input → smart transliteration</li>
+                  <li>Unavailable locale → fallback to English</li>
+                </ul>
+              </div>
+              <div class="card"><strong>Acceptance Criteria</strong>
+                <ul>
+                  <li>WCAG 2.2 AA across locales</li>
+                  <li>Glossary & tone guides enforced</li>
+                </ul>
+              </div>
+              <div class="card"><strong>KPIs</strong>
+                <ul>
+                  <li>Locale adoption %</li>
+                  <li>CSAT per locale</li>
+                </ul>
+                <p class="muted">Data: Locale, TranslationKey, VoiceProfile</p>
+              </div>
+            </div>
+          </div>
+        </details>
+
       </div>
+
       <!-- NFR -->
       <div id="nfr" class="card">
         <h2>5) Non-Functional Requirements</h2>
         <div class="grid-3">
           <div>
             <strong>Availability</strong>
-            <ul><li>SLO 99.9% SaaS; 99.95% Enterprise</li></ul>
+            <ul><li>SaaS SLO 99.9% (core), 99.95% (enterprise)</li><li>Video/WebRTC SLO 99.9%</li></ul>
             <strong>Performance</strong>
             <ul><li>Public pages: LCP p75 &lt; 2.5s, INP &lt; 200ms</li><li>Core reads: API p50 &lt; 200ms</li></ul>
           </div>
           <div>
             <strong>Scalability</strong>
-            <ul><li>Horizontal reads/writes, event bus for async</li></ul>
+            <ul><li>Microservices + autoscaling; target 1M concurrent users</li><li>Event-driven (Kafka/NATS)</li></ul>
             <strong>Accessibility</strong>
-            <ul><li>WCAG 2.2 AA</li></ul>
+            <ul><li>WCAG 2.2 AA; screen reader labels</li></ul>
           </div>
           <div>
             <strong>Localization</strong>
-            <ul><li>EN (India) + multi-lang; IST defaults</li></ul>
+            <ul><li>15+ locales; IST defaults for India</li></ul>
             <strong>Observability</strong>
-            <ul><li>Logs/metrics/traces; anomaly detection</li></ul>
+            <ul><li>Logs/metrics/traces; anomaly detection; SLO burn alerts</li></ul>
           </div>
         </div>
       </div>
+
       <!-- Architecture -->
       <div id="arch" class="card">
         <h2>6) Architecture</h2>
         <div class="grid-3">
           <div>
             <strong>Frontend</strong>
-            <ul><li>Next.js (web)</li><li>React Native (mobile)</li></ul>
+            <ul><li>Next.js (web)</li><li>React Native (mobile)</li><li>WebRTC for consults</li></ul>
             <strong>Backend</strong>
-            <ul><li>Node/NestJS (or Go)</li><li>GraphQL + REST</li><li>Kafka/NATS bus</li></ul>
+            <ul><li>Node/NestJS or Go microservices</li><li>GraphQL + REST</li><li>Async queue (Kafka/NATS)</li></ul>
           </div>
           <div>
             <strong>Data</strong>
-            <ul><li>PostgreSQL (OLTP)</li><li>S3 object storage</li><li>Redis cache</li><li>OpenSearch/SIEM logs</li></ul>
+            <ul><li>PostgreSQL (OLTP)</li><li>S3/Object store (PHR, DICOM)</li><li>Redis cache</li><li>OpenSearch/SIEM logs</li></ul>
+            <strong>AI/ML</strong>
+            <ul><li>TensorFlow/PyTorch services (risk, NLP)</li><li>Feature store; model registry; A/B eval</li></ul>
           </div>
           <div>
             <strong>Security</strong>
-            <ul><li>Tenant isolation (DB-per-tenant or RLS + envelope)</li><li>KMS; secrets manager</li><li>Kubernetes; India region tenancy</li></ul>
+            <ul><li>Tenant isolation (DB-per-tenant or RLS + envelope)</li><li>KMS; secrets manager</li><li>Field-level encryption for PHR</li><li>Biometric auth on mobile</li></ul>
           </div>
         </div>
       </div>
+
       <!-- Data Model -->
       <div id="data" class="card">
         <h2>7) Data Model & API</h2>
@@ -1298,49 +1819,101 @@
               <tr><td>Clinical</td><td>Encounter, Observation, Condition, Procedure, CarePlan</td><td>Encounter, Observation, Condition, Procedure, CarePlan</td></tr>
               <tr><td>Meds</td><td>Medication, MedicationRequest, AllergyIntolerance</td><td>Medication, MedicationRequest, AllergyIntolerance</td></tr>
               <tr><td>Diagnostics</td><td>ServiceRequest, DiagnosticReport, ImagingStudy</td><td>ServiceRequest, DiagnosticReport, ImagingStudy</td></tr>
-              <tr><td>Ops</td><td>Appointment, Schedule, Slot, QueueToken</td><td>Appointment, Schedule, Slot</td></tr>
-              <tr><td>Finance</td><td>Invoice, Payment, Refund, Payout</td><td>Custom + Invoice profile</td></tr>
-              <tr><td>CRM</td><td>Lead, Campaign, Template, Consent, Review, NPSResponse</td><td>Consent + custom</td></tr>
+              <tr><td>Ops</td><td>Appointment, Schedule, Slot, RecurrenceRule, QueueToken</td><td>Appointment, Schedule, Slot</td></tr>
+              <tr><td>PHR</td><td>PHRDocument, Tag, ShareLink, KeyEnvelope</td><td>DocumentReference, Binary</td></tr>
+              <tr><td>Tele</td><td>ConsultSession, Transcript, Rating</td><td>Communication, Media</td></tr>
+              <tr><td>Vitals</td><td>DeviceLink, VitalMeasurement, ThresholdRule, AlertEvent</td><td>Device, Observation</td></tr>
+              <tr><td>Insurance</td><td>InsurancePolicy, Claim, PreAuth, NetworkProvider</td><td>Coverage, Claim</td></tr>
+              <tr><td>Finance</td><td>Wallet, Transaction, Invoice, Payment, Refund, Payout</td><td>Custom + Invoice profile</td></tr>
+              <tr><td>Content</td><td>ContentItem, Topic, Quiz, ForumPost, ModerationEvent</td><td>—</td></tr>
+              <tr><td>Immunization</td><td>Immunization, VaccineLot, Certificate</td><td>Immunization</td></tr>
+              <tr><td>Emergency</td><td>SOSIncident, Responder, GeoTrail, MedicalID</td><td>—</td></tr>
+              <tr><td>Analytics</td><td>RiskScore, Insight, FeatureVector</td><td>—</td></tr>
               <tr><td>Audit</td><td>AuditEvent, LogArchive, Incident</td><td>AuditEvent</td></tr>
             </tbody>
           </table>
         </div>
-        <h3>API Surface (MVP sketch)</h3>
+
+        <h3>API Surface (expanded)</h3>
         <pre><button class="copy" data-clipboard="#api">Copy</button><code id="api"># Auth
 POST /auth/otp
 POST /auth/refresh
-# Patients & Docs
+POST /auth/biometric/verify
+
+# Patients & PHR
 GET/POST /patients
-POST /patients/{id}/documents
+POST /patients/{id}/documents                 # upload (PDF/JPEG/PNG/DICOM)
+GET  /patients/{id}/phr?tag=&folder=
+POST /phr/{docId}/share                       # time-bound link
+DELETE /phr/shares/{shareId}
+
 # FHIR (R4)
-GET/POST /fhir/*              # Standard RESTful interactions
-GET /fhir/metadata            # CapabilityStatement
+GET/POST /fhir/*                              # standard RESTful interactions
+GET /fhir/metadata
+
+# Tele-Consults
+POST /consults                                # create/join (WebRTC token)
+POST /consults/{id}/end
+POST /consults/{id}/transcript/consent
+GET  /consults/{id}/summary
+
 # Appointments
 GET/POST /appointments
+PUT /appointments/{id}/reschedule
+POST /appointments/recurrence                 # RRULE support
 GET /schedules
 GET /slots
+
 # Communications
 POST /templates
-POST /messages/send
+POST /messages/send                           # sms/email/push/whatsapp
 POST /consents
+
 # eRx
 POST /prescriptions
-GET /prescriptions/{id}/pdf
-POST /prescriptions/{id}/sign
-# Labs
-POST /lab/referrals
-POST /lab/results
-# Billing
-POST /invoices
+GET  /prescriptions/{id}/pdf
+POST /prescriptions/{id}/sign                 # eSign
+GET  /prescriptions/{id}/qr                   # pharmacy QR
+
+# Lab (consumer)
+GET  /labs/catalog?test=&package=
+POST /labs/bookings
+GET  /labs/bookings/{id}/report
+
+# Pharmacy Delivery (partners)
+POST /pharmacy/orders
+GET  /pharmacy/orders/{id}/track
+POST /pharmacy/subscriptions
+
+# Vitals & Devices
+POST /devices/link
+GET  /vitals?type=bp&from=&to=
+POST /alerts
+
+# Insurance (lite)
+POST /insurance/policies/ocr
+POST /claims
+GET  /claims/{id}
+
+# Wallet & Billing
+POST /wallet/charge
+GET  /wallet/transactions?from=&to=
 POST /payments/webhooks
+
 # Automations
 POST /automation/flows
-GET /automation/runs</code></pre>
+GET  /automation/runs
+
+# Emergency
+POST /sos/trigger
+POST /sos/cancel</code></pre>
       </div>
+
       <!-- Compliance -->
       <div id="compliance" class="card">
         <h2>8) Compliance Checklist → System Controls</h2>
         <p class="muted">Use this as an internal audit sheet. Add Owners, Frequency, and Evidence in your tracker.</p>
+
         <details class="prd" open>
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1367,6 +1940,7 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1393,6 +1967,7 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1418,10 +1993,11 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <h3>ABDM / ABHA / HIE-CM</h3><span class="tag">Required (India)</span>
+          <h3>ABDM / ABHA / HIE-CM</h3><span class="tag">Required (India)</span>
           </summary>
           <div class="content">
             <div class="grid-2">
@@ -1445,6 +2021,7 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1470,6 +2047,7 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1495,6 +2073,7 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1519,6 +2098,9 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
+        <!-- NEW: GDPR + ISO 27001 rows in summary table below -->
+
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1542,6 +2124,7 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
+
         <div style="overflow:auto; margin-top:14px">
           <table class="table" aria-label="Compliance Mapping Summary">
             <thead><tr><th>Reg/Standard</th><th>Obligation</th><th>Product Control</th><th>Evidence</th></tr></thead>
@@ -1550,14 +2133,17 @@ GET /automation/runs</code></pre>
               <tr><td>DLT</td><td>PE, headers, templates, consent</td><td>DLT registry; pre-send validator; quiet hours</td><td>Message metadata, template IDs</td></tr>
               <tr><td>CERT-In</td><td>6-hr reporting; 180-day India logs; NTP</td><td>IR runbook; SIEM retention; NTP alarms</td><td>IR tickets; configs; monthly proof</td></tr>
               <tr><td>ABDM</td><td>FHIR; HIE-CM consent; M1–M3; Scan & Share</td><td>FHIR store; consent flows; sandbox tests</td><td>Validator logs; milestone artifacts</td></tr>
+              <tr><td>GDPR</td><td>Lawful basis, DPIA, data subject rights, SCCs</td><td>DPIA templates; EU data residency opt; export/erasure tooling</td><td>DPIA docs; DSR logs; SCCs/DTAs</td></tr>
+              <tr><td>HIPAA (opt)</td><td>Safeguards; BAAs</td><td>HIPAA mode; VPC; audit</td><td>Policy set; BAA; logs</td></tr>
+              <tr><td>ISO 27001</td><td>ISMS controls (A.5–A.8)</td><td>Risk registry; change mgmt; backup/DR; access reviews</td><td>SoA; audit reports; drills</td></tr>
               <tr><td>Aadhaar Offline</td><td>Offline only; mask/tokenize</td><td>Signature verify; no raw storage</td><td>Code review; masked DB dump</td></tr>
               <tr><td>Telemedicine</td><td>O/A/B allowed; Prohibited blocked</td><td>eRx rules engine; UI warnings</td><td>Test suite; audit logs</td></tr>
-              <tr><td>HIPAA (opt)</td><td>Safeguards; BAAs</td><td>HIPAA mode; VPC; audit</td><td>Policy set; BAA; logs</td></tr>
               <tr><td>FHIR R4</td><td>Resource conformance</td><td>Coverage + CapabilityStatement</td><td>/fhir/metadata, validator</td></tr>
             </tbody>
           </table>
         </div>
       </div>
+
       <!-- Pricing -->
       <div id="pricing" class="card">
         <h2>9) Pricing & Packaging</h2>
@@ -1567,7 +2153,7 @@ GET /automation/runs</code></pre>
             <ul>
               <li>₹1,999–3,999/mo</li>
               <li>Scheduling, comms bundle (500 SMS)</li>
-              <li>Basic eRx</li>
+              <li>Basic eRx + PHR (5 GB)</li>
             </ul>
           </div>
           <div class="card">
@@ -1575,30 +2161,33 @@ GET /automation/runs</code></pre>
             <ul>
               <li>₹6,999–14,999/mo</li>
               <li>Voice eRx, automations, labs panel</li>
-              <li>5K contacts, DLT setup</li>
+              <li>PHR 100 GB; Tele-consults (100/mo)</li>
             </ul>
           </div>
           <div class="card">
             <strong>Multi-Branch</strong>
             <ul>
               <li>₹24,999–49,999/mo</li>
-              <li>Branches/SSO, analytics</li>
+              <li>Branches/SSO, analytics, AI insights</li>
               <li>ABDM sandbox enablement</li>
             </ul>
           </div>
         </div>
-        <p class="muted">Enterprise: VPC deploy, HIPAA mode, BAAs, SLAs • Add-ons: WhatsApp/SMS/eSign/ABDM transactions; storage overages.</p>
+        <p class="muted">Enterprise: VPC deploy, HIPAA/GDPR modes, BAAs, SLAs • Add-ons: WhatsApp/SMS/eSign/ABDM transactions; Tele minutes; OCR packs; storage overages.</p>
       </div>
+
       <!-- Rollout -->
       <div id="rollout" class="card">
         <h2>10) Rollout & Milestones</h2>
         <ol>
           <li><strong>M0–M2:</strong> Scheduling + DLT reminders; patient app v1; text eRx; CMS starter</li>
           <li><strong>M3–M5:</strong> Voice eRx + autocomplete; automations v1; lab panel; ABDM M1–M2</li>
-          <li><strong>M6–M7:</strong> ABDM M3 (HIU view); Scan & Share intake; analytics v1</li>
-          <li><strong>M8–M9:</strong> Specialty packs; HIPAA mode; listings/reviews connector</li>
+          <li><strong>M6–M7:</strong> Tele-consults; PHR OCR + DICOM; analytics v1</li>
+          <li><strong>M8–M9:</strong> Health wallet; vaccination tracker; insurance lite</li>
+          <li><strong>M10–M12:</strong> Family mgmt; wearables; AI risk scores</li>
         </ol>
       </div>
+
       <!-- Risks -->
       <div id="risks" class="card">
         <h2>11) Risks & Mitigations</h2>
@@ -1607,9 +2196,10 @@ GET /automation/runs</code></pre>
           <li><strong>ABDM readiness variability:</strong> Non-ABDM fallback; clear positioning</li>
           <li><strong>DLT template rejections:</strong> Robust pre-send validator; fallbacks</li>
           <li><strong>Identity misuse:</strong> Prefer offline eKYC; mask/tokenize; reviews</li>
-          <li><strong>Incident timelines:</strong> Detection, on-call, breach drills</li>
+          <li><strong>Model risks:</strong> AI reviews, model cards, human-in-the-loop</li>
         </ul>
       </div>
+
       <!-- Go/No-Go -->
       <div id="gates" class="card">
         <h2>12) Go / No-Go Gates (MVP)</h2>
@@ -1617,21 +2207,23 @@ GET /automation/runs</code></pre>
           <li>Booking with DLT-compliant reminders & no-show flows live</li>
           <li>Patient portal (OTP + optional Aadhaar offline) with record downloads</li>
           <li>FHIR store (core resources) + encounter bundle export; ABDM M1</li>
-          <li>eRx (voice) with telemedicine safety rails; signed PDF</li>
+          <li>eRx (voice) with telemedicine safety rails; signed PDF + QR</li>
+          <li>PHR uploads with OCR & secure sharing; audit enabled</li>
           <li>Observability: central logs; India logs retained 180 days; restore drill; NTP sync</li>
         </ol>
       </div>
+
       <!-- Open -->
       <div id="open" class="card">
         <h2>13) Open Questions</h2>
         <ul>
-          <li>Specialty deep-dives in phase-1 (physio first?)</li>
           <li>Messaging vendor & payment gateway choices at launch</li>
           <li>Tenant isolation: DB-per-tenant vs. RLS + envelope encryption</li>
           <li>Patient app: React Native vs. Flutter</li>
-          <li>Launch languages beyond English/Hindi</li>
+          <li>Launch languages beyond English/Hindi (top 6?)</li>
         </ul>
       </div>
+
       <!-- Appendix -->
       <div id="appendix" class="card">
         <h2>14) Appendices</h2>
@@ -1666,26 +2258,27 @@ GET /automation/runs</code></pre>
           </div>
         </div>
       </div>
+
     </section>
   </main>
+
   <!-- Back-to-top FAB -->
   <button class="fab" id="toTop" aria-label="Back to top">↑</button>
+
   <!-- Minimal Apple-ish + Material micro interactions -->
   <script>
     // Theme toggle
     const themeBtn = document.getElementById('toggleTheme');
     const saved = localStorage.getItem('theme');
-    if(saved){
-      document.documentElement.setAttribute('data-theme', saved);
-      themeBtn.setAttribute('aria-pressed', saved === 'dark');
-    }
+    if(saved){ document.documentElement.setAttribute('data-theme', saved); }
     themeBtn.addEventListener('click', () => {
       const curr = document.documentElement.getAttribute('data-theme');
       const next = curr === 'light' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-      themeBtn.setAttribute('aria-pressed', next === 'dark');
+      themeBtn.setAttribute('aria-pressed', next==='dark');
     });
+    themeBtn.setAttribute('aria-pressed', (document.documentElement.getAttribute('data-theme')==='dark'));
 
     // Expand/Collapse all (clears any search filtering so everything is visible)
     const expandAll = document.getElementById('expandAll');
@@ -1736,7 +2329,6 @@ GET /automation/runs</code></pre>
         parent.replaceChild(frag, tn);
       });
     };
-
     const clearMarks = () => document.querySelectorAll('mark').forEach(m => {
       const parent = m.parentNode;
       parent.replaceChild(document.createTextNode(m.textContent), m);
@@ -1761,7 +2353,6 @@ GET /automation/runs</code></pre>
     };
 
     searchInput.addEventListener('input', e => filterSections(e.target.value.trim()));
-
     window.addEventListener('keydown', e => {
       if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
         e.preventDefault(); searchInput.focus(); searchInput.select();
@@ -1774,27 +2365,10 @@ GET /automation/runs</code></pre>
       clearMarks();
       document.querySelectorAll('details.prd').forEach(d => { d.style.removeProperty('display'); d.open = true; });
     });
-
     collapseAll.addEventListener('click', () => {
       if (searchInput) { searchInput.value = ''; }
       clearMarks();
       document.querySelectorAll('details.prd').forEach(d => { d.style.removeProperty('display'); d.open = false; });
-    });
-
-    // Copy buttons for code blocks
-    document.querySelectorAll('.copy').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        try{
-          const sel = btn.getAttribute('data-clipboard');
-          const text = document.querySelector(sel).innerText;
-          await navigator.clipboard.writeText(text);
-          btn.textContent = 'Copied ✓';
-          setTimeout(() => btn.textContent = 'Copy', 1400);
-        }catch(err){
-          btn.textContent = 'Copy failed';
-          setTimeout(() => btn.textContent = 'Copy', 1400);
-        }
-      });
     });
 
     // NOTE: No auto-date here; the "Last updated" stays "5th March 2025".
