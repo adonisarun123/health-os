@@ -325,6 +325,9 @@
       .actions {
         width: 100%;
         justify-content: space-between;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 5px;
       }
 
       .search {
@@ -454,14 +457,22 @@
         flex-direction: column;
         width: 100%;
         gap: 8px;
+        align-items: stretch;
       }
 
       .search {
         order: 1;
       }
 
+      .btn-group {
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        order: 2;
+      }
+
       .btn {
-        width: 100%;
+        flex: 1;
         justify-content: center;
       }
 
@@ -515,10 +526,12 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3m2.3-5.2A7 7 0 1 1 5 5a7 7 0 0 1 14 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           <input id="search" type="search" placeholder="Search in PRD (⌘/Ctrl + K)" aria-label="Search PRD"/>
         </div>
-        <button class="btn ghost" id="toggleTheme" aria-pressed="false" title="Toggle theme" type="button">🌗 Theme</button>
-        <button class="btn ghost" id="expandAll" title="Expand all modules" type="button">➕ Expand</button>
-        <button class="btn ghost" id="collapseAll" title="Collapse all modules" type="button">➖ Collapse</button>
-        <button class="btn primary" id="printDoc" title="Print / Save as PDF" type="button">⎙ Print</button>
+        <div class="btn-group">
+          <button class="btn ghost" id="toggleTheme" aria-pressed="false" title="Toggle theme" type="button">🌗 Theme</button>
+          <button class="btn ghost" id="expandAll" title="Expand all modules" type="button">➕ Expand</button>
+          <button class="btn ghost" id="collapseAll" title="Collapse all modules" type="button">➖ Collapse</button>
+          <button class="btn primary" id="printDoc" title="Print / Save as PDF" type="button">⎙ Print</button>
+        </div>
       </div>
     </div>
   </header>
@@ -1662,23 +1675,29 @@ GET /automation/runs</code></pre>
     // Theme toggle
     const themeBtn = document.getElementById('toggleTheme');
     const saved = localStorage.getItem('theme');
-    if(saved){ document.documentElement.setAttribute('data-theme', saved); }
+    if(saved){
+      document.documentElement.setAttribute('data-theme', saved);
+      themeBtn.setAttribute('aria-pressed', saved === 'dark');
+    }
     themeBtn.addEventListener('click', () => {
       const curr = document.documentElement.getAttribute('data-theme');
       const next = curr === 'light' ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-      themeBtn.setAttribute('aria-pressed', next==='dark');
+      themeBtn.setAttribute('aria-pressed', next === 'dark');
     });
-    themeBtn.setAttribute('aria-pressed', (document.documentElement.getAttribute('data-theme')==='dark'));
+
     // Expand/Collapse all (clears any search filtering so everything is visible)
     const expandAll = document.getElementById('expandAll');
     const collapseAll = document.getElementById('collapseAll');
     const searchInput = document.getElementById('search');
+
     // Back to top
     document.getElementById('toTop').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
     // Print
     document.getElementById('printDoc').addEventListener('click', () => window.print());
+
     // Reading progress bar
     const progress = document.getElementById('progress');
     const onScroll = () => {
@@ -1688,6 +1707,7 @@ GET /automation/runs</code></pre>
     };
     document.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
+
     // --- Search, highlight & filter ---
     const markText = (node, term) => {
       const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
@@ -1712,15 +1732,17 @@ GET /automation/runs</code></pre>
           frag.appendChild(mk);
           lastIndex = m.index + m[0].length;
         }
-        frag.appendChild(document.createTextNode(text.slice(lastIndex]));
+        frag.appendChild(document.createTextNode(text.slice(lastIndex)));
         parent.replaceChild(frag, tn);
       });
     };
+
     const clearMarks = () => document.querySelectorAll('mark').forEach(m => {
       const parent = m.parentNode;
       parent.replaceChild(document.createTextNode(m.textContent), m);
       parent.normalize();
     });
+
     const filterSections = term => {
       clearMarks();
       if(!term){
@@ -1737,23 +1759,28 @@ GET /automation/runs</code></pre>
       matches.slice(0,10).forEach(m => m.open = true);
       matches.forEach(m => markText(m, term));
     };
+
     searchInput.addEventListener('input', e => filterSections(e.target.value.trim()));
+
     window.addEventListener('keydown', e => {
       if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
         e.preventDefault(); searchInput.focus(); searchInput.select();
       }
     });
+
     // Make sure expand/collapse always affect all sections and clear filters
     expandAll.addEventListener('click', () => {
       if (searchInput) { searchInput.value = ''; }
       clearMarks();
       document.querySelectorAll('details.prd').forEach(d => { d.style.removeProperty('display'); d.open = true; });
     });
+
     collapseAll.addEventListener('click', () => {
       if (searchInput) { searchInput.value = ''; }
       clearMarks();
       document.querySelectorAll('details.prd').forEach(d => { d.style.removeProperty('display'); d.open = false; });
     });
+
     // Copy buttons for code blocks
     document.querySelectorAll('.copy').forEach(btn => {
       btn.addEventListener('click', async () => {
@@ -1769,6 +1796,7 @@ GET /automation/runs</code></pre>
         }
       });
     });
+
     // NOTE: No auto-date here; the "Last updated" stays "5th March 2025".
   </script>
 </body>
