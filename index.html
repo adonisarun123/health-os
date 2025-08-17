@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HealthOS — Practical, Decomposed PRD (SaaS for Clinics & Allied Health)</title>
   <meta name="description" content="A complete, implementation-ready PRD for HealthOS — a multi-tenant SaaS for clinics and allied health: appointments, eRx, ABDM/FHIR, automations, CMS, marketing, analytics, compliance and more." />
-
   <!-- Inline, Apple-inspired + Material-ish CSS -->
   <style>
     :root{
@@ -43,7 +42,6 @@
       --glass: linear-gradient(180deg, rgba(255,255,255,1), rgba(255,255,255,.85));
       --glass-2: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.9));
     }
-
     html,body{
       margin:0;
       padding:0;
@@ -55,7 +53,6 @@
       -moz-osx-font-smoothing: grayscale;
       scroll-behavior:smooth;
     }
-
     /* Top progress bar */
     .progress{
       position: fixed; top:0; left:0; height:4px; width:0%;
@@ -64,31 +61,26 @@
       z-index:9999;
       transition: width .1s linear;
     }
-
     header{
       position: sticky; top:0; z-index: 999;
       backdrop-filter: saturate(180%) blur(14px);
       background: var(--glass);
       border-bottom: 1px solid var(--border);
     }
-
     .wrap{
       margin: 0 auto;
       max-width: var(--grid);
       padding: 14px 20px;
       display:flex; align-items:center; gap:18px; justify-content:space-between;
     }
-
     .brand{
       display:flex; align-items:center; gap:12px; text-decoration:none; color: var(--text);
     }
     .brand svg{ width:28px; height:28px; }
     .brand .title{ font-weight:700; letter-spacing:.2px; }
-
     .actions{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     }
-
     .btn{
       position:relative;
       border:1px solid var(--border);
@@ -109,7 +101,6 @@
     .btn.primary{ background: linear-gradient(180deg, var(--primary), #3b82f6); border-color: transparent; color: white; }
     .btn.ghost{ background: transparent; }
     .btn.small{ padding:8px 10px; font-size:13px; }
-
     .search{
       position:relative;
       display:flex; align-items:center; gap:10px;
@@ -125,18 +116,12 @@
       border:0; outline:none; background:transparent; color:var(--text); width:100%;
       font-size:14px;
     }
-
     main{
       max-width: var(--grid);
       margin: 28px auto;
       padding: 0 20px 100px;
       display:grid; grid-template-columns: 260px 1fr; gap: 22px;
     }
-    @media (max-width: 1080px){
-      main{ grid-template-columns: 1fr; }
-      .toc{ position: static; top:auto; }
-    }
-
     .hero{
       margin: 26px auto 8px;
       max-width: var(--grid);
@@ -168,7 +153,6 @@
       color: var(--muted);
     }
     .chip .dot{ width:8px; height:8px; border-radius:999px; background: var(--primary); box-shadow: 0 0 0 3px rgba(14,165,233,.15); }
-
     .toc{
       position: sticky; top: 74px;
       align-self:flex-start;
@@ -187,11 +171,9 @@
       transition: background .15s ease, color .15s ease;
     }
     .toc a:hover{ background: rgba(14,165,233,.1); color: var(--primary); }
-
     .section{
       display:grid; gap: 14px;
     }
-
     .card{
       border:1px solid var(--border);
       background: var(--card);
@@ -199,14 +181,12 @@
       box-shadow: var(--shadow-1);
       padding: 18px 18px;
     }
-
     .section h2{
       margin: 8px 0 6px;
       font-size: clamp(20px, 2.2vw, 26px);
     }
     .section p{ margin: 10px 0; color: var(--text); }
     .muted{ color: var(--muted); }
-
     /* Details/Accordion */
     details.prd{
       border:1px solid var(--border);
@@ -236,7 +216,6 @@
       width:18px; height:18px; transition: transform .2s ease; opacity:.9;
     }
     details[open] .summary .chev{ transform: rotate(180deg); }
-
     .content{
       padding: 2px 18px 18px;
       display:grid; gap: 14px;
@@ -249,10 +228,6 @@
       display:grid; gap:12px;
       grid-template-columns: repeat(3, minmax(0,1fr));
     }
-    @media (max-width: 900px){
-      .grid-2, .grid-3{ grid-template-columns: 1fr; }
-    }
-
     /* Tables */
     .table{
       width:100%; border-collapse: collapse; overflow:auto;
@@ -271,7 +246,6 @@
       font-size: 12px; background: #0b1220; color: #eaf2ff; padding: 4px 6px; border-radius: 6px;
       border:1px solid #1f2a44;
     }
-
     /* Code blocks */
     pre{
       background: #0b1220;
@@ -287,7 +261,6 @@
       border:1px solid #1f2a44; background: #0e1628; color:#eaf2ff;
       border-radius:8px; font-size:12px; padding:6px 8px; cursor:pointer;
     }
-
     /* FAB + Back-to-top */
     .fab{
       position: fixed; right: 22px; bottom: 22px; z-index: 888;
@@ -297,7 +270,6 @@
       cursor:pointer; display:flex; align-items:center; justify-content:center;
     }
     .fab:active{ transform: translateY(1px); }
-
     /* Status chips */
     .status{ display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid var(--border); }
     .status .dot{ width:8px; height:8px; border-radius:999px; }
@@ -307,6 +279,208 @@
     .warn .dot{ background: var(--warn); }
     .danger{ background: rgba(239,68,68,.12); }
     .danger .dot{ background: var(--danger); }
+    /* Highlight for search */
+    mark{ background: #fde68a; color: black; padding: 0 3px; border-radius: 4px; }
+
+    /* Responsive improvements */
+    @media (max-width: 1200px) {
+      .wrap {
+        padding: 12px 16px;
+      }
+      .hero-card {
+        padding: 20px;
+      }
+      .search {
+        max-width: 280px;
+      }
+    }
+
+    @media (max-width: 1080px){
+      main{ grid-template-columns: 1fr; }
+      .toc{
+        position: static;
+        top:auto;
+        max-height: none;
+        margin-bottom: 20px;
+      }
+    }
+
+    @media (max-width: 900px){
+      .grid-2, .grid-3{ grid-template-columns: 1fr; }
+      .hero-card {
+        padding: 16px;
+      }
+      .brand .title {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .wrap {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+
+      .actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .search {
+        max-width: none;
+        order: 3;
+        width: 100%;
+      }
+
+      .hero {
+        padding: 0 16px;
+      }
+
+      main {
+        padding: 0 16px 80px;
+        margin: 20px auto;
+      }
+
+      .fab {
+        width: 48px;
+        height: 48px;
+        right: 16px;
+        bottom: 16px;
+      }
+
+      .summary {
+        padding: 14px 16px;
+      }
+
+      .summary h3 {
+        font-size: 16px;
+      }
+
+      .content {
+        padding: 2px 16px 16px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .table th, .table td {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .brand svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .brand .title {
+        font-size: 16px;
+      }
+
+      .btn {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+
+      .btn.small {
+        padding: 6px 8px;
+        font-size: 12px;
+      }
+
+      .hero-card {
+        padding: 14px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .chip {
+        font-size: 11px;
+        padding: 5px 8px;
+      }
+
+      .toc {
+        padding: 12px;
+      }
+
+      .toc h3 {
+        font-size: 13px;
+        margin: 5px 8px 10px;
+      }
+
+      .toc a {
+        padding: 6px 8px;
+        font-size: 13px;
+      }
+
+      .section h2 {
+        font-size: 20px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .summary {
+        padding: 12px 14px;
+      }
+
+      .summary h3 {
+        font-size: 15px;
+      }
+
+      .summary .tag {
+        font-size: 11px;
+        padding: 4px 8px;
+      }
+
+      .content {
+        padding: 2px 14px 14px;
+      }
+
+      .table th, .table td {
+        padding: 6px 8px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+      }
+
+      .search {
+        order: 1;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .fab {
+        width: 44px;
+        height: 44px;
+      }
+
+      .summary {
+        flex-wrap: wrap;
+      }
+
+      .summary .tag {
+        margin-left: 0;
+        margin-top: 8px;
+        width: 100%;
+        text-align: center;
+      }
+    }
 
     /* Print (clean) */
     @media print{
@@ -316,15 +490,10 @@
       a{ color: #000; text-decoration: none; }
       body{ background: white; color: black; }
     }
-
-    /* Highlight for search */
-    mark{ background: #fde68a; color: black; padding: 0 3px; border-radius: 4px; }
-
   </style>
 </head>
 <body>
   <div class="progress" id="progress"></div>
-
   <header>
     <div class="wrap">
       <a class="brand" href="#top" aria-label="Go to top">
@@ -341,7 +510,6 @@
         </svg>
         <span class="title">HealthOS — PRD</span>
       </a>
-
       <div class="actions">
         <div class="search" role="search">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.3-4.3m2.3-5.2A7 7 0 1 1 5 5a7 7 0 0 1 14 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -354,7 +522,6 @@
       </div>
     </div>
   </header>
-
   <section class="hero" id="top">
     <div class="hero-card">
       <div class="badges">
@@ -386,7 +553,6 @@
       </div>
     </div>
   </section>
-
   <main>
     <!-- TOC -->
     <nav class="toc" aria-label="Table of contents">
@@ -407,14 +573,12 @@
       <a href="#open">13) Open Questions</a>
       <a href="#appendix">14) Appendices</a>
     </nav>
-
     <!-- BODY -->
     <section class="section">
       <div id="exec" class="card">
         <h2>0) Executive Summary</h2>
         <p>HealthOS is a subscription SaaS for clinics and allied health—combining scheduling, automated follow-ups, patient communications, standards-based health records, voice e-prescriptions, lab referrals, marketing automation, CMS, analytics, mobile apps, and a compliance-first backbone (ABDM/ABHA, DPDP, DLT, CERT-In; HIPAA mode for US tenants). Clinical data aligns to HL7 FHIR R4.</p>
       </div>
-
       <div id="goals" class="card">
         <h2>1) Goals, Non-Goals, KPIs</h2>
         <div class="grid-3">
@@ -447,7 +611,6 @@
           </div>
         </div>
       </div>
-
       <div id="personas" class="card">
         <h2>2) Personas</h2>
         <ul>
@@ -459,7 +622,6 @@
           <li><strong>Patient/Attendant:</strong> self-book, records, payments, uploads</li>
         </ul>
       </div>
-
       <div id="scope" class="card">
         <h2>3) Scope Overview (Modules)</h2>
         <ol>
@@ -479,7 +641,6 @@
           <li>Integrations & ABDM Onboarding</li>
         </ol>
       </div>
-
       <!-- DECOMPOSED PRDs -->
       <div id="modules">
         <!-- PRD 1 -->
@@ -493,7 +654,7 @@
             <div class="grid-2">
               <div class="card">
                 <strong>Problem & Objectives</strong>
-                <p>Reduce no-shows, simplify multi-provider calendars, support telemedicine and QR-based “Scan & Share” OPD intake.</p>
+                <p>Reduce no-shows, simplify multi-provider calendars, support telemedicine and QR-based "Scan & Share" OPD intake.</p>
                 <strong>User Stories</strong>
                 <ul>
                   <li>Book/reschedule with buffers & room/device resources</li>
@@ -542,7 +703,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 2 -->
         <details class="prd">
           <summary class="summary">
@@ -598,7 +758,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 3 -->
         <details class="prd">
           <summary class="summary">
@@ -654,7 +813,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 4 -->
         <details class="prd">
           <summary class="summary">
@@ -707,7 +865,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 5 -->
         <details class="prd">
           <summary class="summary">
@@ -761,7 +918,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 6 -->
         <details class="prd">
           <summary class="summary">
@@ -812,7 +968,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 7 -->
         <details class="prd">
           <summary class="summary">
@@ -862,7 +1017,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 8 -->
         <details class="prd">
           <summary class="summary">
@@ -890,7 +1044,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 9 -->
         <details class="prd">
           <summary class="summary">
@@ -918,7 +1071,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 10 -->
         <details class="prd">
           <summary class="summary">
@@ -947,7 +1099,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 11 -->
         <details class="prd">
           <summary class="summary">
@@ -974,7 +1125,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 12 -->
         <details class="prd">
           <summary class="summary">
@@ -1009,7 +1159,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 13 -->
         <details class="prd">
           <summary class="summary">
@@ -1046,7 +1195,6 @@
             </div>
           </div>
         </details>
-
         <!-- PRD 14 -->
         <details class="prd">
           <summary class="summary">
@@ -1082,7 +1230,6 @@
           </div>
         </details>
       </div>
-
       <!-- NFR -->
       <div id="nfr" class="card">
         <h2>5) Non-Functional Requirements</h2>
@@ -1107,7 +1254,6 @@
           </div>
         </div>
       </div>
-
       <!-- Architecture -->
       <div id="arch" class="card">
         <h2>6) Architecture</h2>
@@ -1128,7 +1274,6 @@
           </div>
         </div>
       </div>
-
       <!-- Data Model -->
       <div id="data" class="card">
         <h2>7) Data Model & API</h2>
@@ -1147,53 +1292,42 @@
             </tbody>
           </table>
         </div>
-
         <h3>API Surface (MVP sketch)</h3>
         <pre><button class="copy" data-clipboard="#api">Copy</button><code id="api"># Auth
 POST /auth/otp
 POST /auth/refresh
-
 # Patients & Docs
 GET/POST /patients
 POST /patients/{id}/documents
-
 # FHIR (R4)
 GET/POST /fhir/*              # Standard RESTful interactions
 GET /fhir/metadata            # CapabilityStatement
-
 # Appointments
 GET/POST /appointments
 GET /schedules
 GET /slots
-
 # Communications
 POST /templates
 POST /messages/send
 POST /consents
-
 # eRx
 POST /prescriptions
 GET /prescriptions/{id}/pdf
 POST /prescriptions/{id}/sign
-
 # Labs
 POST /lab/referrals
 POST /lab/results
-
 # Billing
 POST /invoices
 POST /payments/webhooks
-
 # Automations
 POST /automation/flows
 GET /automation/runs</code></pre>
       </div>
-
       <!-- Compliance -->
       <div id="compliance" class="card">
         <h2>8) Compliance Checklist → System Controls</h2>
         <p class="muted">Use this as an internal audit sheet. Add Owners, Frequency, and Evidence in your tracker.</p>
-
         <details class="prd" open>
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1220,7 +1354,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1247,7 +1380,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1273,7 +1405,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1301,7 +1432,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1327,7 +1457,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1353,7 +1482,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1378,7 +1506,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <details class="prd">
           <summary class="summary">
             <svg class="chev" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1402,7 +1529,6 @@ GET /automation/runs</code></pre>
             </div>
           </div>
         </details>
-
         <div style="overflow:auto; margin-top:14px">
           <table class="table" aria-label="Compliance Mapping Summary">
             <thead><tr><th>Reg/Standard</th><th>Obligation</th><th>Product Control</th><th>Evidence</th></tr></thead>
@@ -1419,7 +1545,6 @@ GET /automation/runs</code></pre>
           </table>
         </div>
       </div>
-
       <!-- Pricing -->
       <div id="pricing" class="card">
         <h2>9) Pricing & Packaging</h2>
@@ -1451,7 +1576,6 @@ GET /automation/runs</code></pre>
         </div>
         <p class="muted">Enterprise: VPC deploy, HIPAA mode, BAAs, SLAs • Add-ons: WhatsApp/SMS/eSign/ABDM transactions; storage overages.</p>
       </div>
-
       <!-- Rollout -->
       <div id="rollout" class="card">
         <h2>10) Rollout & Milestones</h2>
@@ -1462,7 +1586,6 @@ GET /automation/runs</code></pre>
           <li><strong>M8–M9:</strong> Specialty packs; HIPAA mode; listings/reviews connector</li>
         </ol>
       </div>
-
       <!-- Risks -->
       <div id="risks" class="card">
         <h2>11) Risks & Mitigations</h2>
@@ -1474,7 +1597,6 @@ GET /automation/runs</code></pre>
           <li><strong>Incident timelines:</strong> Detection, on-call, breach drills</li>
         </ul>
       </div>
-
       <!-- Go/No-Go -->
       <div id="gates" class="card">
         <h2>12) Go / No-Go Gates (MVP)</h2>
@@ -1486,7 +1608,6 @@ GET /automation/runs</code></pre>
           <li>Observability: central logs; India logs retained 180 days; restore drill; NTP sync</li>
         </ol>
       </div>
-
       <!-- Open -->
       <div id="open" class="card">
         <h2>13) Open Questions</h2>
@@ -1498,7 +1619,6 @@ GET /automation/runs</code></pre>
           <li>Launch languages beyond English/Hindi</li>
         </ul>
       </div>
-
       <!-- Appendix -->
       <div id="appendix" class="card">
         <h2>14) Appendices</h2>
@@ -1533,13 +1653,10 @@ GET /automation/runs</code></pre>
           </div>
         </div>
       </div>
-
     </section>
   </main>
-
   <!-- Back-to-top FAB -->
   <button class="fab" id="toTop" aria-label="Back to top">↑</button>
-
   <!-- Minimal Apple-ish + Material micro interactions -->
   <script>
     // Theme toggle
@@ -1554,18 +1671,14 @@ GET /automation/runs</code></pre>
       themeBtn.setAttribute('aria-pressed', next==='dark');
     });
     themeBtn.setAttribute('aria-pressed', (document.documentElement.getAttribute('data-theme')==='dark'));
-
     // Expand/Collapse all (clears any search filtering so everything is visible)
     const expandAll = document.getElementById('expandAll');
     const collapseAll = document.getElementById('collapseAll');
     const searchInput = document.getElementById('search');
-
     // Back to top
     document.getElementById('toTop').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-
     // Print
     document.getElementById('printDoc').addEventListener('click', () => window.print());
-
     // Reading progress bar
     const progress = document.getElementById('progress');
     const onScroll = () => {
@@ -1575,7 +1688,6 @@ GET /automation/runs</code></pre>
     };
     document.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
-
     // --- Search, highlight & filter ---
     const markText = (node, term) => {
       const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
@@ -1600,7 +1712,7 @@ GET /automation/runs</code></pre>
           frag.appendChild(mk);
           lastIndex = m.index + m[0].length;
         }
-        frag.appendChild(document.createTextNode(text.slice[lastIndex]));
+        frag.appendChild(document.createTextNode(text.slice(lastIndex]));
         parent.replaceChild(frag, tn);
       });
     };
@@ -1609,7 +1721,6 @@ GET /automation/runs</code></pre>
       parent.replaceChild(document.createTextNode(m.textContent), m);
       parent.normalize();
     });
-
     const filterSections = term => {
       clearMarks();
       if(!term){
@@ -1626,14 +1737,12 @@ GET /automation/runs</code></pre>
       matches.slice(0,10).forEach(m => m.open = true);
       matches.forEach(m => markText(m, term));
     };
-
     searchInput.addEventListener('input', e => filterSections(e.target.value.trim()));
     window.addEventListener('keydown', e => {
       if((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='k'){
         e.preventDefault(); searchInput.focus(); searchInput.select();
       }
     });
-
     // Make sure expand/collapse always affect all sections and clear filters
     expandAll.addEventListener('click', () => {
       if (searchInput) { searchInput.value = ''; }
@@ -1645,7 +1754,6 @@ GET /automation/runs</code></pre>
       clearMarks();
       document.querySelectorAll('details.prd').forEach(d => { d.style.removeProperty('display'); d.open = false; });
     });
-
     // Copy buttons for code blocks
     document.querySelectorAll('.copy').forEach(btn => {
       btn.addEventListener('click', async () => {
@@ -1661,7 +1769,6 @@ GET /automation/runs</code></pre>
         }
       });
     });
-
     // NOTE: No auto-date here; the "Last updated" stays "5th March 2025".
   </script>
 </body>
